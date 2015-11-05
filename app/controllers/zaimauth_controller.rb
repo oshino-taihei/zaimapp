@@ -6,6 +6,8 @@ class ZaimauthController < ApplicationController
   CALLBACK_URL = ENV['CALLBACK_URL']
   API_URL = 'https://api.zaim.net/v2/'
 
+  MONEY_DATA = 'money.dat'
+
   def top
   end
 
@@ -46,10 +48,13 @@ class ZaimauthController < ApplicationController
     @access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:access_secret])
     money = @access_token.get("#{API_URL}home/money")
     @money = JSON.parse(money.body)
+    @filename = MONEY_DATA
+    download(@filename, @money)
   end
 
   def view
-
+    @filename = MONEY_DATA
+    @money = read_data(@filename)
   end
 
   private
@@ -60,6 +65,22 @@ class ZaimauthController < ApplicationController
       request_token_path: '/v2/auth/request',
       authorize_url: 'https://auth.zaim.net/users/auth',
       access_token_path: '/v2/auth/access')
+  end
+
+  def download(filename, data)
+    File.open(zaimdata(filename), 'wb') { |f|
+      f.write(data)
+    }
+  end
+
+  def read_data(filename)
+    zaimdata_path = zaimdata(filename)
+    return nil unless File.exist?(zaimdata_path)
+    File.open(zaimdata_path).read
+  end
+
+  def zaimdata(filename)
+    "public/zaimdata/#{filename}"
   end
 
 end
