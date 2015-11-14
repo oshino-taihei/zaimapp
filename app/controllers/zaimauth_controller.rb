@@ -7,7 +7,11 @@ class ZaimauthController < ApplicationController
 
   API_SET = ["money", "category", "genre", "account"]
   API_URL = "https://api.zaim.net/v2/home"
-  
+
+  def index
+
+  end
+
   def login
     set_consumer
     @request_token = @consumer.get_request_token(oauth_callback: CALLBACK_URL)
@@ -37,11 +41,7 @@ class ZaimauthController < ApplicationController
       logout
     end
   end
-
-  def index
-
-  end
-
+  
   def download
     set_consumer
     @access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:access_secret])

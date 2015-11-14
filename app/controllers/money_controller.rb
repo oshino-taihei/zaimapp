@@ -2,7 +2,7 @@ class MoneyController < ApplicationController
   before_action :set_money, only: [:show, :edit, :update, :destroy]
 
   def index
-    @money = Money.all
+    @money = Money.includes(:category, :genre, :from_account)
   end
 
   def show
