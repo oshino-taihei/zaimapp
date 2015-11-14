@@ -1,13 +1,19 @@
-#download
+%h2.h Zaim連携機能
+.zaim
   %p ZaimからMoneyデータダウンロード
   %p= link_to 'ダウンロード', '/download'
   %p MoneyデータDBインポート
   %p= link_to 'インポート', '/import_money'
   %p CategoryデータDBインポート
   %p= link_to 'インポート', '/import_category'
-#money
+  %p GenreデータDBインポート
+  %p= link_to 'インポート', '/import_genre'
+  %p AccountデータDBインポート
+  %p= link_to 'インポート', '/import_account'
+
+%h2.h データ表示機能
+.view
   %p Moneyデータ表示
   %p= link_to '表示', money_index_path
-#viz
   %p Moneyデータグラフ可視化
   %p= link_to 'グラフ', viz_path

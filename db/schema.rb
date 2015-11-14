@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114014905) do
+ActiveRecord::Schema.define(version: 20151114061530) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "zaim_id"
+    t.string   "name"
+    t.date     "modified"
+    t.integer  "sort"
+    t.string   "active"
+    t.string   "zaim_local_id"
+    t.string   "zaim_parent_account_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "zaim_id"
@@ -24,6 +36,19 @@ ActiveRecord::Schema.define(version: 20151114014905) do
     t.string   "zaim_local_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "zaim_id"
+    t.string   "zaim_category_id"
+    t.string   "name"
+    t.integer  "sort"
+    t.string   "active"
+    t.date     "modified"
+    t.string   "zaim_parent_genre_id"
+    t.string   "zaim_local_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "money", force: :cascade do |t|

@@ -1,9 +1,9 @@
-class Category < ActiveRecord::Base
+class Genre < ActiveRecord::Base
   validates :zaim_id,
     uniqueness: true
 
   has_many :money, foreign_key: :zaim_genre_id, primary_key: :zaim_id
-  # Zaim APIが返すJSONをCategoryモデルのHashに変換する
+  # Zaim APIが返すJSONをGenreモデルのHashに変換する
   def self.fix_zaim_param(zaim_param)
     {
       zaim_id: zaim_param["id"],

@@ -10,6 +10,7 @@
       %th zaim_category_id
       %th カテゴリ名
       %th zaim_genre_id
+      %th ジャンル
       %th zaim_from_account_id
       %th zaim_to_account_id
       %th amount
@@ -34,6 +35,7 @@
         %td= money.zaim_category_id
         %td= money.category.name
         %td= money.zaim_genre_id
+        %td= money.genre ? money.genre.name : "-"
         %td= money.zaim_from_account_id
         %td= money.zaim_to_account_id
         %td= number_to_currency(money.amount, unit: '', precision: 0)

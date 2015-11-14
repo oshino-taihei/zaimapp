@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  zaim_id: MyString
+  name: MyString
+  modified: 2015-11-14
+  sort: 1
+  active: MyString
+  zaim_local_id: MyString
+  zaim_parent_account_id: MyString
+
+two:
+  zaim_id: MyString
+  name: MyString
+  modified: 2015-11-14
+  sort: 1
+  active: MyString
+  zaim_local_id: MyString
+  zaim_parent_account_id: MyString

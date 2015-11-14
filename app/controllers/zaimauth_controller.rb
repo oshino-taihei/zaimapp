@@ -7,12 +7,7 @@ class ZaimauthController < ApplicationController
 
   API_SET = ["money", "category", "genre", "account"]
   API_URL = "https://api.zaim.net/v2/home"
-
-  MONEY_DATA = 'money.json'
-
-  def top
-  end
-
+  
   def login
     set_consumer
     @request_token = @consumer.get_request_token(oauth_callback: CALLBACK_URL)
@@ -58,12 +53,20 @@ class ZaimauthController < ApplicationController
     end
   end
 
+  def import_money
+    import_db("money.json", "money", Money)
+  end
+
   def import_category
     import_db("category.json", "categories", Category)
   end
 
-  def import_money
-    import_db("money.json", "money", Money)
+  def import_genre
+    import_db("genre.json", "genres", Genre)
+  end
+
+  def import_account
+    import_db("account.json", "accounts", Account)
   end
 
   private
@@ -85,7 +88,6 @@ class ZaimauthController < ApplicationController
     end
     render 'import_db'
   end
-
 
   def set_consumer
     @consumer = OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET,
