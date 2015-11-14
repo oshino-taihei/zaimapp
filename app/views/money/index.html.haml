@@ -1,4 +1,4 @@
-%h2.h 履歴
+%h2.h 履歴一覧
 
 %table
   %thead
@@ -6,7 +6,7 @@
       %th 日付
       %th カテゴリ名
       %th ジャンル
-      %th コメント
+      %th メモ
       %th 金額
       %th 出金
       %th お店
@@ -17,6 +17,6 @@
         %td= money.category.name
         %td= money.genre ? money.genre.name : "-"
         %td= money.comment
-        %td= number_to_currency(money.amount, unit: '', precision: 0)
+        %td= number_to_currency(money.amount, unit: '¥', precision: 0)
         %td= money.from_account ? money.from_account.name : "-"
         %td= money.place

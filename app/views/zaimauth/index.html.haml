@@ -1,6 +1,6 @@
-%h2.h Zaim連携機能
+%h2.h Zaim連携
 .zaim
-  %p ZaimからMoneyデータダウンロード
+  %p Zaimからデータダウンロード(Money, Category, Genre, Account)
   %p= link_to 'ダウンロード', '/download'
   %p MoneyデータDBインポート
   %p= link_to 'インポート', '/import_money'
@@ -11,9 +11,9 @@
   %p AccountデータDBインポート
   %p= link_to 'インポート', '/import_account'
 
-%h2.h データ表示機能
+%h2.h 履歴データ表示
 .view
-  %p Moneyデータ表示
+  %p 履歴データ一覧の表示
   %p= link_to '表示', money_index_path
-  %p Moneyデータグラフ可視化
+  %p 履歴データのグラフ表示
   %p= link_to 'グラフ', viz_path
