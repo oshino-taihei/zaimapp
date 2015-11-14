@@ -1,20 +1,20 @@
 %h1.h
-  %a{href: "#"} Zaimapp
+  = link_to "Zaimapp", "/"
 %nav.global-nav
   .menu-nav
     %ul
       %li.nav-item
-        %a{href: "/"} HOME
+        = link_to "HOME", "/"
       %li.nav-item
-        %a{href: "#"} MENU1
+        = link_to "MENU1", "/"
       %li.nav-item
-        %a{href: "#"} MENU2
+        = link_to "MENU2", "/"
   .login-nav
     %ul
       %li.nav-item
         - if session[:access_token].nil?
-          %a{href: '/zaimauth/login'} ログイン
+          = link_to "ログイン", "/zaimauth/login"
         - else
           認証済み
       %li.nav-item
-        %a{href: '/zaimauth/logout'} ログアウト
+        = link_to "ログアウト", "/zaimauth/logout"
