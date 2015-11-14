@@ -1,28 +1,20 @@
 class MoneyController < ApplicationController
   before_action :set_money, only: [:show, :edit, :update, :destroy]
 
-  # GET /money
-  # GET /money.json
   def index
     @money = Money.all
   end
 
-  # GET /money/1
-  # GET /money/1.json
   def show
   end
 
-  # GET /money/new
   def new
     @money = Money.new
   end
 
-  # GET /money/1/edit
   def edit
   end
 
-  # POST /money
-  # POST /money.json
   def create
     @money = Money.new(money_params)
 
@@ -37,8 +29,6 @@ class MoneyController < ApplicationController
     end
   end
 
-  # PATCH/PUT /money/1
-  # PATCH/PUT /money/1.json
   def update
     respond_to do |format|
       if @money.update(money_params)
@@ -51,8 +41,6 @@ class MoneyController < ApplicationController
     end
   end
 
-  # DELETE /money/1
-  # DELETE /money/1.json
   def destroy
     @money.destroy
     respond_to do |format|
@@ -62,12 +50,10 @@ class MoneyController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_money
       @money = Money.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def money_params
       params[:money]
     end
