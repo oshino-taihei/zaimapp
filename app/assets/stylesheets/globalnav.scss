@@ -1,0 +1,38 @@
+.logo {
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #333333;
+}
+
+.global-nav {
+  margin-top: 15px;
+  text-align: center;
+
+  .menu-nav, .login-nav {
+    display: inline-block;
+  }
+
+  .nav-item {
+    display: inline-block;
+    margin: 0 10px;
+    color: #666;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+
+    a {
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 8px;
+      transition: 0.15s;
+    }
+    
+    a:hover {
+      background-color: #d03c56;
+      color: #fff;
+    }
+  }
+}

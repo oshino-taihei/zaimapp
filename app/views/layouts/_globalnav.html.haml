@@ -1,0 +1,20 @@
+%h1.h
+  %a{href: "#"} Zaimapp
+%nav.global-nav
+  .menu-nav
+    %ul
+      %li.nav-item
+        %a{href: "/"} HOME
+      %li.nav-item
+        %a{href: "#"} MENU1
+      %li.nav-item
+        %a{href: "#"} MENU2
+  .login-nav
+    %ul
+      %li.nav-item
+        - if session[:access_token].nil?
+          %a{href: '/zaimauth/login'} ログイン
+        - else
+          認証済み
+      %li.nav-item
+        %a{href: '/zaimauth/logout'} ログアウト

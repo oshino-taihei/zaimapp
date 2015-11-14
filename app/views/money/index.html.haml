@@ -1,0 +1,51 @@
+%h2.h 履歴
+
+%table
+  %thead
+    %tr
+      %th zaim_id
+      %th zaim_user_id
+      %th date
+      %th mode
+      %th zaim_category_id
+      %th zaim_genre_id
+      %th zaim_from_account_id
+      %th zaim_to_account_id
+      %th amount
+      %th comment
+      %th active
+      %th created
+      %th currency_code
+      %th name
+      %th zaim_receipt_id
+      %th zaim_place_uid
+      %th place
+      %th 詳細
+      %th 編集
+      %th 削除
+  %tbody
+    - @money.each do |money|
+      %tr
+        %td= money.zaim_id
+        %td= money.zaim_user_id
+        %td= money.date
+        %td= money.mode
+        %td= money.zaim_category_id
+        %td= money.zaim_genre_id
+        %td= money.zaim_from_account_id
+        %td= money.zaim_to_account_id
+        %td= number_to_currency(money.amount, unit: '', precision: 0)
+        %td= money.comment
+        %td= money.active
+        %td= money.created
+        %td= money.currency_code
+        %td= money.name
+        %td= money.zaim_receipt_id
+        %td= money.zaim_place_uid
+        %td= money.place
+        %td= link_to 'Show', money
+        %td= link_to 'Edit', edit_money_path(money)
+        %td= link_to 'Destroy', money, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
+
+= link_to 'New Money', new_money_path

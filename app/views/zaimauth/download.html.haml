@@ -1,0 +1,5 @@
+%p ファイルをダウンロードしました。
+%ul
+  - @apiSet.each do |api|
+    %li #{api}.json
+%p= link_to 'Back', :back

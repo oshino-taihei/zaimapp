@@ -6,4 +6,9 @@
     = javascript_include_tag 'application', 'data-turbolinks-track'
     = csrf_meta_tags
   %body
-    = yield
+    %header.header
+      = render 'layouts/globalnav'
+    %hr
+    .wrapper.clearfix
+      %main.main
+        = yield
