@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  zaim_id: MyString
+  mode: MyString
+  name: MyString
+  sort: 1
+  active: 
+  modified: 2015-11-14
+  zaim_parent_category_id: MyString
+  zaim_local_id: MyString
+
+two:
+  zaim_id: MyString
+  mode: MyString
+  name: MyString
+  sort: 1
+  active: 
+  modified: 2015-11-14
+  zaim_parent_category_id: MyString
+  zaim_local_id: MyString

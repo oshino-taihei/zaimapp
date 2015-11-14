@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109015114) do
+ActiveRecord::Schema.define(version: 20151114014905) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "zaim_id"
+    t.string   "mode"
+    t.string   "name"
+    t.integer  "sort"
+    t.string   "active"
+    t.date     "modified"
+    t.string   "zaim_parent_category_id"
+    t.string   "zaim_local_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "money", force: :cascade do |t|
     t.string   "zaim_id"

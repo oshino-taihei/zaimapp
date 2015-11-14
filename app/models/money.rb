@@ -4,6 +4,8 @@ class Money < ActiveRecord::Base
   validates :zaim_id,
     uniqueness: true
 
+  belongs_to :category, foreign_key: :zaim_category_id, primary_key: :zaim_id
+
   # Zaim APIが返すJSONをMoneyモデルのHashに変換する
   def self.fix_zaim_param(zaim_param)
     {

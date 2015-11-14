@@ -65,6 +65,7 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hirb (0.7.3)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -164,6 +165,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   dotenv-rails
   haml-rails
+  hirb
   jbuilder (~> 2.0)
   jquery-rails
   oauth

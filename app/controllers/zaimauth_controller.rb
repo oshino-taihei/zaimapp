@@ -5,11 +5,8 @@ class ZaimauthController < ApplicationController
   CONSUMER_SECRET = ENV['CONSUMER_SECRET']
   CALLBACK_URL = ENV['CALLBACK_URL']
 
+  API_SET = ["money", "category", "genre", "account"]
   API_URL = "https://api.zaim.net/v2/home"
-  MONEY_API_URL = "https://api.zaim.net/v2/home/money"
-  CATEGORY_API_URL = "https://api.zaim.net/v2/home/category"
-  GENRE_API_URL = "https://api.zaim.net/v2/home/genre"
-  ACCOUNT_API_URL = "https://api.zaim.net/v2/home/account"
 
   MONEY_DATA = 'money.json'
 
@@ -53,7 +50,7 @@ class ZaimauthController < ApplicationController
   def download
     set_consumer
     @access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:access_secret])
-    @apiSet = ["money", "category", "genre", "account"]
+    @apiSet = API_SET
     @apiSet.each do |api|
       data = @access_token.get("#{API_URL}/#{api}")
       filename = "#{api}.json"
@@ -61,25 +58,34 @@ class ZaimauthController < ApplicationController
     end
   end
 
-  def import_db
-    @filename = MONEY_DATA
-    @money = read_data(@filename)
-    @dataset = @money["money"]
+  def import_category
+    import_db("category.json", "categories", Category)
+  end
+
+  def import_money
+    import_db("money.json", "money", Money)
+  end
+
+  private
+
+  def import_db(filename, dataset_name, model_class)
+    data = read_data(filename)
+    dataset = data[dataset_name]
 
     @success = 0
     @failure = 0
-    @dataset.each_with_index do |m,i|
-      zaim_params = Money.fix_zaim_param(m)
-      money = Money.new(zaim_params)
-      if money.save
+    dataset.each_with_index do |m,i|
+      zaim_params = model_class.fix_zaim_param(m)
+      model = model_class.new(zaim_params)
+      if model.save
         @success += 1
       else
         @failure += 1
       end
     end
+    render 'import_db'
   end
 
-  private
 
   def set_consumer
     @consumer = OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET,
@@ -90,9 +96,9 @@ class ZaimauthController < ApplicationController
   end
 
   def save_file(filename, data)
-    File.open(zaimdata(filename), 'wb') { |f|
+    File.open(zaimdata(filename), 'wb') do |f|
       f.write(data)
-    }
+    end
   end
 
   def read_data(filename)
