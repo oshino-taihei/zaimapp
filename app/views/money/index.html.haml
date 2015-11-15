@@ -17,6 +17,6 @@
         %td= money.category.name
         %td= money.genre_name
         %td= money.comment
-        %td= to_currency(money.amount)
+        %td= number_to_currency(money.amount, unit: '¥', precision: 0)
         %td= money.from_account_name
         %td= money.place
