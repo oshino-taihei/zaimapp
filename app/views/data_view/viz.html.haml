@@ -1,22 +1,40 @@
 %h2.h グラフ
 
+#chart
+
 %p= link_to 'Back', :back
 = javascript_include_tag "http://d3js.org/d3.v3.min.js", charset: 'utf-8'
+= javascript_include_tag "flotr2.min.js"
 :javascript
-  d3.json("/money.json", function(dataset) {
-    console.log(dataset);
-    var w = 500;
-    var h = 300;
-    var svg = d3.select("body").append("svg").attr({width:w, heigth:h});
-    svg.selectAll("circle")
-      .data(dataset)
-      .enter()
-      .append("circle")
-      .attr({
-        cx: function(d,i) { return d.amount; },
-        cy: h / 2,
-        r:  function(d,i) { return d.amount / 10; },
-        fill: "red"
-      });
+  $(function(){
+
+  var
+      container = document.getElementById("chart"),
+      // First data series:
+      d1 = [[0, 3], [4, 8], [8, 5], [9, 13]],
+      // Second data series:
+      d2 = [],
+      // A couple flotr configuration options:
+      options = {
+        xaxis: {
+          minorTickFreq: 4
+        },
+        grid: {
+          minorVerticalLines: true
+        }
+      },
+      i, graph;
+
+  // Generated second data set:
+  for (i = 0; i < 14; i += 0.5) {
+      d2.push([i, Math.sin(i)]);
+  }
+
+  // Draw the graph:
+  graph = Flotr.draw(
+      container,  // Container element
+      [ d1, d2 ], // Array of data series
+      options     // Configuration options
+  );
 
   });
