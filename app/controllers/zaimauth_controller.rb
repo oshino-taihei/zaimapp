@@ -41,15 +41,21 @@ class ZaimauthController < ApplicationController
       logout
     end
   end
-  
+
   def download
     set_consumer
     @access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:access_secret])
-    @apiSet = API_SET
-    @apiSet.each do |api|
-      data = @access_token.get("#{API_URL}/#{api}")
+    @success_files = []
+    @failure_files = []
+    API_SET.each do |api|
+      response = @access_token.get("#{API_URL}/#{api}")
       filename = "#{api}.json"
-      save_file(filename, data.body)
+      if (response.code == "200")
+        save_file(filename, response.body)
+        @success_files << filename
+      else
+        @failure_files << filename
+      end
     end
   end
 

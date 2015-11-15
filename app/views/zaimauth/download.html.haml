@@ -1,5 +1,10 @@
-%p ファイルをダウンロードしました。
+%p #{@success_files.size}件のファイルのダウンロードに成功しました。
 %ul
-  - @apiSet.each do |api|
-    %li #{api}.json
+  - @success_files.each do |filename|
+    %li #{filename}
+%p #{@failure_files.size}件のファイルのダウンロードに失敗しました。
+%ul
+  - @failure_files.each do |filename|
+    %li #{filename}
+
 %p= link_to 'Back', :back
