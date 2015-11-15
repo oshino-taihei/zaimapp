@@ -15,8 +15,8 @@
       %tr
         %td= money.date
         %td= money.category.name
-        %td= money.genre ? money.genre.name : "-"
+        %td= money.genre_name
         %td= money.comment
-        %td= number_to_currency(money.amount, unit: '¥', precision: 0)
-        %td= money.from_account ? money.from_account.name : "-"
+        %td= to_currency(money.amount)
+        %td= money.from_account_name
         %td= money.place

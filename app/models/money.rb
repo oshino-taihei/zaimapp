@@ -7,6 +7,20 @@ class Money < ActiveRecord::Base
   belongs_to :from_account, class_name: :Account, foreign_key: :zaim_from_account_id, primary_key: :zaim_id
   belongs_to :to_account, class_name: :Account, foreign_key: :zaim_to_account_id, primary_key: :zaim_id
 
+  NO_DATA = "-"
+
+  def category_name
+    category ? category.name : NO_DATA
+  end
+
+  def genre_name
+    genre ? genre.name : NO_DATA
+  end
+
+  def from_account_name
+    from_account ? from_account.name : NO_DATA
+  end
+
   # Zaim APIが返すJSONをMoneyモデルのHashに変換する
   def self.fix_zaim_param(zaim_param)
     {
