@@ -3,38 +3,39 @@
 #chart
 
 %p= link_to 'Back', :back
-= javascript_include_tag "http://d3js.org/d3.v3.min.js", charset: 'utf-8'
 = javascript_include_tag "flotr2.min.js"
 :javascript
-  $(function(){
+  $.getJSON('/data_view/month.json', function(json) {
+    var container = document.getElementById("chart");
 
-  var
-      container = document.getElementById("chart"),
-      // First data series:
-      d1 = [[0, 3], [4, 8], [8, 5], [9, 13]],
-      // Second data series:
-      d2 = [],
-      // A couple flotr configuration options:
-      options = {
-        xaxis: {
-          minorTickFreq: 4
-        },
-        grid: {
-          minorVerticalLines: true
-        }
+    var labels = json.label;
+    var dataset = $.map(json.data, function(v, k) {
+      return {data: v, label: k}
+    });
+    var options = {
+      title: "月ごとの支出額",
+      bars: {
+        show: true,
+        stacked: true,
+        barWidth: 0.5,
+        shadowSize: 0,
+        fillOpacity: 1,
+        lineWidth: 0
       },
-      i, graph;
+      xaxis: {
+        ticks: labels
+      },
+      yaxis: {
+        min: 0
+      },
+      grid: {
+        verticalLines: false
+      }
+    };
 
-  // Generated second data set:
-  for (i = 0; i < 14; i += 0.5) {
-      d2.push([i, Math.sin(i)]);
-  }
-
-  // Draw the graph:
-  graph = Flotr.draw(
-      container,  // Container element
-      [ d1, d2 ], // Array of data series
-      options     // Configuration options
-  );
-
+    var graph = Flotr.draw(
+        container,
+        dataset,
+        options
+    );
   });
