@@ -1,5 +1,7 @@
 %h2.h 履歴一覧
 
+= render 'search_form'
+
 %table
   %thead
     %tr
@@ -17,6 +19,8 @@
         %td= money.category.name
         %td= money.genre_name
         %td= money.comment
-        %td= number_to_currency(money.amount, unit: '¥', precision: 0)
+        %td= number_to_currency(money.amount)
         %td= money.from_account_name
         %td= money.place
+    %tr.total
+      %td{colspan: 7} 小計: #{number_to_currency(@money.sum(:amount))}

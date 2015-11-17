@@ -1,0 +1,17 @@
+.search_form
+  = search_form_for(@q) do |f|
+    .field
+      = f.label :comment_or_category_name_or_genre_name_or_place_cont, "検索"
+      = f.search_field :comment_or_category_name_or_genre_name_or_place_cont, {size: 60}
+    .field
+      = f.label :date_gteq, "日付"
+      = f.date_select :date_gteq, include_blank: true
+      〜
+      = f.date_select :date_lteq, include_blank: true
+    .field
+      = f.label :amount_gteq, "金額"
+      = f.search_field :amount_gt, include_blank: true
+      〜
+      = f.search_field :amount_lt, include_blank: true
+    .submit
+      = f.submit "検索"

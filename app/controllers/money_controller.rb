@@ -2,7 +2,8 @@ class MoneyController < ApplicationController
   before_action :set_money, only: [:show, :edit, :update, :destroy]
 
   def index
-    @money = Money.includes(:category, :genre, :from_account)
+    @q = Money.ransack(params[:q])
+    @money = @q.result.includes(:category, :genre, :from_account)
   end
 
   def show

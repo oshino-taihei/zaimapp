@@ -48,3 +48,5 @@ end
 gem 'haml-rails'
 gem 'oauth'
 gem 'dotenv-rails'
+gem 'ransack'
+gem 'rails-i18n'
