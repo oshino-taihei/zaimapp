@@ -1,41 +1,14 @@
 %h2.h グラフ
 
+.search_form
+  = form_tag({controller: :data_view, action: :month, format: :json}, method: :get, remote: true) do |f|
+    .field
+      = label 'q[comment_or_category_name_or_genre_name_or_place_cont]', "検索"
+      = text_field_tag 'q[comment_or_category_name_or_genre_name_or_place_cont]'
+    .submit
+      = submit_tag "検索"
+
 #chart
 
 %p= link_to 'Back', :back
 = javascript_include_tag "flotr2.min.js"
-:javascript
-  $.getJSON('/data_view/month.json', function(json) {
-    var container = document.getElementById("chart");
-
-    var labels = json.label;
-    var dataset = $.map(json.data, function(v, k) {
-      return {data: v, label: k}
-    });
-    var options = {
-      title: "月ごとの支出額",
-      bars: {
-        show: true,
-        stacked: true,
-        barWidth: 0.5,
-        shadowSize: 0,
-        fillOpacity: 1,
-        lineWidth: 0
-      },
-      xaxis: {
-        ticks: labels
-      },
-      yaxis: {
-        min: 0
-      },
-      grid: {
-        verticalLines: false
-      }
-    };
-
-    var graph = Flotr.draw(
-        container,
-        dataset,
-        options
-    );
-  });

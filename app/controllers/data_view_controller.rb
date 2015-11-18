@@ -1,10 +1,18 @@
 class DataViewController < ApplicationController
+  def viz
+    @q = Money.ransack(params[:q])
+    @money = @q.result.includes(:category, :genre, :from_account)
+  end
+
   def month
     months = Money.where('zaim_from_account_id <> "0" and date < "2016-01-01"').select('substr(date, 1, 7) as month').distinct.order(1)
     months = months.map { |e| e.month }
     @label = months.map.with_index { |month,i| [i, month] }
 
-    category_money = Money.includes(:category).where('zaim_from_account_id <> "0" and date < "2016-01-01"').group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
+    #@money = @q.result.includes(:category, :genre, :from_account)
+    @q = Money.ransack(params[:q])
+    category_money = @q.result.includes(:category).where('zaim_from_account_id <> "0" and date < "2016-01-01"').group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
+    #category_money = Money.includes(:category).where('zaim_from_account_id <> "0" and date < "2016-01-01"').group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
     @data = Hash.new
     category_money.each do |k,v|
       category = k[0]
