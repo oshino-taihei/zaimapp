@@ -5,14 +5,27 @@ class DataViewController < ApplicationController
   end
 
   def month
-    months = Money.where('zaim_from_account_id <> "0" and date < "2016-01-01"').select('substr(date, 1, 7) as month').distinct.order(1)
+    money = Money.where('zaim_from_account_id <> "0"') # 支出のみ
+    if params[:from_date]
+      begin
+        from_date = Date.civil(params[:from_date]['date(1i)'].to_i, params[:from_date]['date(2i)'].to_i, params[:from_date]['date(3i)'].to_i)
+        money.where!('? <= date', from_date)
+      rescue
+      end
+    end
+    if params[:to_date]
+      begin
+        to_date = Date.civil(params[:to_date]['date(1i)'].to_i, params[:to_date]['date(2i)'].to_i, params[:to_date]['date(3i)'].to_i)
+        money.where!('date <= ?', to_date)
+      rescue
+      end
+    end
+
+    months = money.select('substr(date, 1, 7) as month').distinct.order(1)
     months = months.map { |e| e.month }
     @label = months.map.with_index { |month,i| [i, month] }
 
-    #@money = @q.result.includes(:category, :genre, :from_account)
-    @q = Money.ransack(params[:q])
-    category_money = @q.result.includes(:category).where('zaim_from_account_id <> "0" and date < "2016-01-01"').group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
-    #category_money = Money.includes(:category).where('zaim_from_account_id <> "0" and date < "2016-01-01"').group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
+    category_money = money.includes(:category).group('categories.name').group('substr(date, 1, 7)').order(:zaim_category_id, 'substr_date_1_7').sum(:amount)
     @data = Hash.new
     category_money.each do |k,v|
       category = k[0]

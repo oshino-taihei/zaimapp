@@ -5,6 +5,11 @@
     .field
       = label 'q[comment_or_category_name_or_genre_name_or_place_cont]', "検索"
       = text_field_tag 'q[comment_or_category_name_or_genre_name_or_place_cont]'
+    .field
+      = label :date, "日付"
+      = date_select :from_date, :date, include_blank: true
+      〜
+      = date_select :to_date, :date
     .submit
       = submit_tag "検索"
 
