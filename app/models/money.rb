@@ -7,6 +7,24 @@ class Money < ActiveRecord::Base
   belongs_to :from_account, class_name: :Account, foreign_key: :zaim_from_account_id, primary_key: :zaim_id
   belongs_to :to_account, class_name: :Account, foreign_key: :zaim_to_account_id, primary_key: :zaim_id
 
+  scope :payments, -> {
+    where('zaim_from_account_id <> "0"')
+  }
+  scope :incomes, -> {
+    where('zaim_to_account_id <> "0"')
+  }
+  scope :from_date, ->(params_date) {
+    from_date = self.convert_date(params_date)
+    where('? <= date', from_date) if from_date
+  }
+  scope :to_date, ->(params_date) {
+    to_date = self.convert_date(params_date)
+    where('date <= ?', to_date) if to_date
+  }
+  scope :months, -> {
+    select('substr(date, 1, 7) as month').distinct.order(1)
+  }
+
   NO_DATA = "-"
 
   def category_name
@@ -42,5 +60,18 @@ class Money < ActiveRecord::Base
       zaim_place_uid: zaim_param["place_uid"],
       place: zaim_param["place"]
     }
+  end
+
+  private
+
+  def self.convert_date(params_date)
+    begin
+      year = params_date['date(1i)'] ? params_date['date(1i)'].to_i : Date.today.year
+      month = params_date['date(2i)'] ? params_date['date(2i)'].to_i : 1
+      day = params_date['date(3i)'] ? params_date['date(3i)'].to_i : 1
+      Date.civil(year, month, day)
+    rescue
+      nil
+    end
   end
 end
