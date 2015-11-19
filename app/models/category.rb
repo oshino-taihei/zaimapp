@@ -3,6 +3,15 @@ class Category < ActiveRecord::Base
     uniqueness: true
 
   has_many :money, foreign_key: :zaim_genre_id, primary_key: :zaim_id
+
+  scope :payments, -> {
+    where(mode: 'payment')
+  }
+  scope :incomes, -> {
+    where(mode: 'income')
+  }
+
+
   # Zaim APIが返すJSONをCategoryモデルのHashに変換する
   def self.fix_zaim_param(zaim_param)
     {
