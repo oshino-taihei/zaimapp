@@ -1,11 +1,11 @@
 class DataViewController < ApplicationController
   def viz
-    @q = Money.ransack(params[:q])
-    @money = @q.result.includes(:category, :genre, :from_account)
+    @categories = Category.payments.order(:sort)
   end
 
   def month
     money = Money.payments
+    money = money.categories(params[:zaim_category_ids])
     money = money.from_date(params[:from_date])
     money = money.to_date(params[:to_date])
 

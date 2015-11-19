@@ -21,6 +21,9 @@ class Money < ActiveRecord::Base
     to_date = self.convert_date(params_date)
     where('date <= ?', to_date) if to_date
   }
+  scope :categories, ->(params_zaim_category_ids) {
+    where(zaim_category_id: params_zaim_category_ids.keys.to_a) if params_zaim_category_ids
+  }
   scope :months, -> {
     select('substr(date, 1, 7) as month').distinct.order(1)
   }

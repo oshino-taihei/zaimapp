@@ -4,7 +4,6 @@ init = ->
     labels = json.label
     dataset = $.map(json.data, (v, k) -> {data: v, label: k} )
     options = {
-      title: "月ごとの支出額",
       bars: {
         show: true,
         stacked: true,
