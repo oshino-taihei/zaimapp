@@ -13,13 +13,11 @@ class Money < ActiveRecord::Base
   scope :incomes, -> {
     where('zaim_to_account_id <> "0"')
   }
-  scope :from_date, ->(params_date) {
-    from_date = self.convert_date(params_date)
-    where('? <= date', from_date) if from_date
+  scope :from_date, ->(from_date) {
+    where('? <= date', from_date) if from_date && !from_date.empty?
   }
-  scope :to_date, ->(params_date) {
-    to_date = self.convert_date(params_date)
-    where('date <= ?', to_date) if to_date
+  scope :to_date, ->(to_date) {
+    where('date <= ?', to_date) if to_date && !to_date.empty?
   }
   scope :categories, ->(params_zaim_category_ids) {
     where(zaim_category_id: params_zaim_category_ids.keys.to_a) if params_zaim_category_ids

@@ -1,5 +1,6 @@
 %h2.h グラフ
 
+%h3.h カテゴリー別
 .search_form
   = form_tag({controller: :data_view, action: :month, format: :json}, method: :get, remote: true) do |f|
     .field
@@ -10,14 +11,26 @@
         |
     .field
       = label :date, "日付"
-      = date_select :from_date, :date, include_blank: true
+      = date_field_tag :from_date
       〜
-      = date_select :to_date, :date
+      = date_field_tag :to_date, Date.today.to_s
     .submit
       = submit_tag "表示"
-
+%h3.h ジャンル別
+.search_form
+  = form_tag({controller: :data_view, action: :month_genre, format: :json}, method: :get, remote: true) do |f|
+    .field
+      カテゴリー
+      = select_tag('zaim_category_id', options_from_collection_for_select(@categories, :zaim_id, :name, 'カテゴリー'))
+    .field
+      = label :date, "日付"
+      = date_field_tag :from_date
+      〜
+      = date_field_tag :to_date, Date.today.to_s
+    .submit
+      = submit_tag "表示"
 .graph
-  %p 月の支出(カテゴリー別)
+  = button_tag("クリア", type: 'reset', onclick: 'delete_all_charts()')
   #chart
 
 %p= link_to 'Back', :back
