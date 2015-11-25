@@ -16,6 +16,7 @@ class Category < ActiveRecord::Base
   def self.fix_zaim_param(zaim_param)
     {
       zaim_id: zaim_param["id"],
+      mode: zaim_param["mode"],
       name: zaim_param["name"],
       sort: zaim_param["sort"],
       active: zaim_param["active"],
