@@ -60,18 +60,22 @@ class ZaimauthController < ApplicationController
   end
 
   def import_money
+    Money.delete_all
     import_db("money.json", "money", Money)
   end
 
   def import_category
+    Category.delete_all
     import_db("category.json", "categories", Category)
   end
 
   def import_genre
+    Genre.delete_all
     import_db("genre.json", "genres", Genre)
   end
 
   def import_account
+    Account.delete_all
     import_db("account.json", "accounts", Account)
   end
 

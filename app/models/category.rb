@@ -16,12 +16,11 @@ class Category < ActiveRecord::Base
   def self.fix_zaim_param(zaim_param)
     {
       zaim_id: zaim_param["id"],
-      zaim_category_id: zaim_param["category_id"],
       name: zaim_param["name"],
       sort: zaim_param["sort"],
       active: zaim_param["active"],
       modified: Date.parse(zaim_param["modified"]),
-      zaim_parent_genre_id: zaim_param["parent_genre_id"],
+      zaim_parent_category_id: zaim_param["parent_category_id"],
       zaim_local_id: zaim_param["local_id"]
     }
   end
