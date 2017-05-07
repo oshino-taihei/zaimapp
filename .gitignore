@@ -21,3 +21,4 @@
 
 # Ignore zaimdata
 /public/zaimdata/*
+!/public/zaimdata/.gitkeep
