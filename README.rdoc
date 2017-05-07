@@ -1,28 +1,48 @@
-== README
+# Zaimデータ取得アプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RailsでZaimの家計簿データを取得する。
 
-Things you may want to cover:
+## アプリケーションのURL
+https://this-app-host
 
-* Ruby version
+## 実装した仕様
 
-* System dependencies
+実装した仕様と機能を実装したページを以下に示す。
 
-* Configuration
+* 「ログイン」より、ZaimのOAuth認証を行い、Zaim APIを実行可能な状態にする
+* 「ログアウト」より、ログアウトできる
+* 「HOME」の「Zaim連携」の「ダウンロード」より、Zaimの各種データをJSON形式でpublic/zaimdataディレクトリにダウンロードできる
+* 「HOME」の「Zaim連携」の「インポート」より、Zaimの各種データをDBに取り込むことができる
+* 「履歴一覧」より、DBに取り込み済みのデータの一覧を参照できる
+* 「グラフ」より、DBに取り込み済みのデータをグラフで可視化できる
 
-* Database creation
+## セットアップ
 
-* Database initialization
+### Ruby version
+2.2.2
 
-* How to run the test suite
+### gemインストール
+````
+gem install bundle
+bundle install
+````
 
-* Services (job queues, cache servers, search engines, etc.)
+### DBマイグレーション
+````
+bundle exec rake db:migrate
+````
+### 環境変数
 
-* Deployment instructions
+Zaim APIを使用するため、以下にログインし「新しいアプリケーションを追加」する。
 
-* ...
+https://dev.zaim.net/
 
+環境変数に上で取得したConsumer KeyとConsumer Secretをセットする。
+また、OAuth認証後のコールバックURLに/callbackを指定する。
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+$RAILS_ROOT/.env
+````
+CONSUMER_KEY='Zaim APIのConsumer Key'
+CONSUMER_SECRET='Zaim APIのConsumer Secret'
+CALLBACK_URL='http[s]://this-app-host/callback'
+````
